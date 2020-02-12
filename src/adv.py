@@ -62,40 +62,21 @@ def main():
         print(player.current_room.description)
         # * Waits for user input and decides what to do.
         user_input = input(">>> ")
+        directions = ('n', 's', 'e', 'w')
         # If the user enters a cardinal direction, attempt to move to the room there.
-        if user_input == 'n':
-            #if room exists, update the current room
-            if player.current_room.n_to != None:
-                player.change_room(player.current_room.n_to)
+        if user_input in directions:
+            attempted_room = getattr(player.current_room, f"{user_input}_to")
+            #if movement is allowed, update the current room
+            if attempted_room != None:
+                player.change_room(attempted_room)
+                #print error message if movement not allowed
             else:
-                #print error if movement not allowed
-                print("You cannot move in that direction")
-        elif user_input == 's':
-            #if room exists, update the current room
-            if player.current_room.s_to != None:
-                player.change_room(player.current_room.s_to)
-            else:
-                #print error if movement not allowed
-                print("You cannot move in that direction")
-        elif user_input == 'e':
-            #if room exists, updaye the current room
-            if player.current_room.e_to != None:
-                player.change_room(player.current_room.e_to)
-            else:
-                #print error if movement not allowed
-                print("You cannot move in that direction")
-        elif user_input == 'w':
-            #if room exists, update the current room
-            if player.current_room.w_to != None:
-                player.change_room(player.current_room.w_to)
-            else:
-                #print error if movement not allowed
                 print("You cannot move in that direction")
         #else if user enters q, quit the game
         elif user_input == 'q':
             break
         else:
-            print("not valid input, please try again")
+            print("Input not valid, please try again")
 
 if __name__ == '__main__':
     main()
